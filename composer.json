@@ -2,13 +2,15 @@
     "name": "awheel/support",
     "description": "awheel support component",
     "license": "MIT",
+    "homepage": "http://awheel.com",
     "authors": [
         {
             "name": "fengqi",
             "email": "lyf362345@gmail.com"
         }
     ],
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "autoload": {
         "psr-4": {
             "awheel\\Support\\": "src/"
@@ -16,5 +18,10 @@
         "files": [
             "src/helpers.php"
         ]
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.1-dev"
+        }
     }
 }
