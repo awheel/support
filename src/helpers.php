@@ -41,3 +41,39 @@ if (! function_exists('sizeFormat')) {
         return sprintf('%.2f '.$s[$e], ($bytes/pow(1024, floor($e))));
     }
 }
+
+// https://github.com/illuminate/support/blob/master/helpers.php#L635
+if (! function_exists('retry')) {
+    /**
+     * 自动重试指定次数
+     *
+     * @param  int  $times
+     * @param  callable  $callback
+     * @param  int  $sleep
+     * @return mixed
+     *
+     * @throws \Exception
+     */
+    function retry($times, callable $callback, $sleep = 0)
+    {
+        $times--;
+
+        beginning:
+        try {
+            return $callback();
+        }
+        catch (Exception $e) {
+            if (! $times) {
+                throw $e;
+            }
+
+            $times--;
+
+            if ($sleep) {
+                usleep($sleep * 1000);
+            }
+
+            goto beginning;
+        }
+    }
+}
