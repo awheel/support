@@ -1,5 +1,7 @@
 <?php
 
+use awheel\Support\Arr;
+
 if (! function_exists('dd')) {
     /**
      * 打印数据, 并停止执行.
@@ -83,6 +85,8 @@ if (! function_exists('getZodiac')) {
      * 根据日期获取12生肖
      *
      * @param int|null $year
+     *
+     * @return bool|mixed
      */
     function getZodiac($year = null)
     {
@@ -93,5 +97,49 @@ if (! function_exists('getZodiac')) {
         $dict = array('猴', '鸡', '狗', '猪', '鼠', '牛', '虎', '兔', '龙', '蛇', '马', '羊');
 
         return $dict[$year % 12];
+    }
+}
+
+if (! function_exists('array_column')) {
+    /**
+     * 返回数组中指定的一列
+     *
+     * @param array $array
+     * @param string|array $column
+     * @param string|int $index_key
+     *
+     * @return bool|mixed
+     */
+    function array_column(array $array, $column, $index_key = null)
+    {
+        return Arr::column($array, $column, $index_key);
+    }
+}
+
+if (! function_exists('array_column_multi')) {
+    /**
+     * 返回数组中指定的一列或多列
+     *
+     * @param array $array
+     * @param string|array $column
+     * @param string|int $index_key
+     *
+     * @return bool|mixed
+     */
+    function array_column_multi(array $array, $column, $index_key = null)
+    {
+        $column = (array)$column;
+        if (count($column) == 1) {
+            return array_column($array, $column[0], $index_key);
+        }
+
+        $values = [];
+        $i = 0;
+        foreach ($array as $item) {
+            $values[$index_key ? $item[$index_key] : $i] = Arr::only($item, $column);
+            $i++;
+        }
+
+        return $values;
     }
 }
