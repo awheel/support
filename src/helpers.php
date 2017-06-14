@@ -77,3 +77,21 @@ if (! function_exists('retry')) {
         }
     }
 }
+
+if (! function_exists('getZodiac')) {
+    /**
+     * 根据日期获取12生肖
+     *
+     * @param int|null $year
+     */
+    function getZodiac($year = null)
+    {
+        if ($year < 0 || $year > 9999) {
+            return false;
+        }
+
+        $dict = array('猴', '鸡', '狗', '猪', '鼠', '牛', '虎', '兔', '龙', '蛇', '马', '羊');
+
+        return $dict[$year % 12];
+    }
+}
