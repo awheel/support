@@ -120,4 +120,30 @@ class Arr
     {
         return array_intersect_key($array, array_flip((array) $keys));
     }
+
+    /**
+     * 使用二维数组下指定字段作为 key 组成新的数组
+     *
+     * @param $array
+     * @param $key
+     *
+     * @return array
+     */
+    static public function newKey($array, $key)
+    {
+        if (!$array || !$key) {
+            return $array;
+        }
+
+        $newArray = [];
+        foreach ($array as $k => $v) {
+            if (!isset($v[$key])) {
+                return $array;
+            }
+
+            $newArray[$v[$key]] = $v;
+        }
+
+        return $newArray;
+    }
 }
