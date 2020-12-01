@@ -110,7 +110,7 @@ class Arr
     }
 
     /**
-     * Get a subset of the items from the given array.
+     * 从数组种获取指定 key 的数据，和 Arr::except 相反
      *
      * @param  array  $array
      * @param  array|string  $keys
@@ -119,6 +119,18 @@ class Arr
     static public function only($array, $keys)
     {
         return array_intersect_key($array, array_flip((array) $keys));
+    }
+
+    /**
+     * 从数组种获取指定 key 以外的全部数据，和 Arr::only 相反
+     *
+     * @param $array
+     * @param $keys
+     *
+     * @return array
+     */
+    static public function except($array, $keys) {
+        return array_diff_key($array, array_flip((array) $keys));
     }
 
     /**
